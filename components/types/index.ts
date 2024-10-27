@@ -6,6 +6,13 @@ export type HeaderProps = {
 };
 export type TotalBalanceBoxProps = {
   totalBanks: number;
-  accounts:  Account[];
+  accounts: Account[];
   totalCurrentBalance: number;
+};
+export type SidebarProps = {
+  user: User;
+};
+export type User = {
+  firstName: string;
+  lastName: string;
 };
