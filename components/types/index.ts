@@ -3,4 +3,9 @@ export type HeaderProps = {
   title: string;
   subtext: string;
   user: string;
-}
+};
+export type TotalBalanceBoxProps = {
+  totalBanks: number;
+  accounts:  Account[];
+  totalCurrentBalance: number;
+};
