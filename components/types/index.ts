@@ -15,4 +15,10 @@ export type SidebarProps = {
 export type User = {
   firstName: string;
   lastName: string;
+  email: string;
+};
+export type RightSidebarProps = {
+  user: User;
+  transactions?: Transaction[];
+  banks?: Bank[];
 };

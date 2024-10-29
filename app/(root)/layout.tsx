@@ -5,14 +5,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const loggedIn = {firstName: "Nour", lastName: "Alsalhi"};
+  const loggedIn = { firstName: "Nour", lastName: "Alsalhi", email: "" };
   return (
-    <main className="flex p-4 h-screen w-full font-inter">
+    <main className="flex h-screen w-full font-inter">
       <Sidebar user={loggedIn} />
-      <div className="flex flex-col">
-        {children}
-      </div>
-      {/* <Sidebar user={loggedIn} /> */}
+      <div className="flex xl:flex-1 flex-col">{children}</div>
     </main>
   );
 }
