@@ -1,4 +1,5 @@
 import Sidebar from "@/components/Sidebar";
+import MobileNav from "@/components/MobileNav";
 
 export default function RootLayout({
   children,
@@ -6,8 +7,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const loggedIn = { firstName: "Nour", lastName: "Alsalhi", email: "" };
+
   return (
-    <main className="flex h-screen w-full font-inter">
+    <main className="flex max-md:flex-col h-screen w-full font-inter">
+      <MobileNav />
       <Sidebar user={loggedIn} />
       <div className="flex xl:flex-1 flex-col">{children}</div>
     </main>

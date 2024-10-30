@@ -34,7 +34,7 @@ const Sidebar = ({ user }: SidebarProps) => {
               } items-center max-xl:justify-center rounded px-3 py-2  gap-3 ${
                 isActive === item.route
                   ? "bg-[#0179FE] text-white font-semibold"
-                  : "text-gray-800"
+                  : "text-black"
               }`}
             >
               <IconComponent
