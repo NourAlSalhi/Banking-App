@@ -9,7 +9,7 @@ import { usePathname } from "next/navigation";
 const Sidebar = ({ user }: SidebarProps) => {
   const isActive = usePathname();
   return (
-    <section className="sticky text-14 left-0 top-0 flex h-screen max-xl:w-fit flex-col max-xl:items-center border-r border-gray-200 bg-white p-5 max-md:hidden pr-3 ">
+    <section className="sticky text-14 left-0 top-0 flex h-screen xl:w-[260px] flex-col max-xl:items-center border-r border-gray-200 bg-white p-5 max-md:hidden pr-3 ">
       <nav className="flex flex-col gap-4">
         <Link href="/" className="mb-8 cursor-pointer flex items-center gap-2">
           <Image
@@ -40,7 +40,7 @@ const Sidebar = ({ user }: SidebarProps) => {
               <IconComponent
                 className="w-6 h-6"
                 style={{
-                  stroke: isActive === item.route ? "white" : "none",
+                  stroke: isActive === item.route ? "white" : "gray",
                 }}
               />
               <span className="max-xl:hidden">{item.label}</span>
