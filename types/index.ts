@@ -51,16 +51,16 @@ declare type SearchParamProps = {
   
   declare type Account = {
     id: string;
-    availableBalance: number;
+    availableBalance?: number;
     currentBalance: number;
-    officialName: string;
-    mask: string;
-    institutionId: string;
+    officialName?: string;
+    mask?: string;
+    institutionId?: string;
     name: string;
-    type: string;
-    subtype: string;
+    type?: string;
+    subtype?: string;
     appwriteItemId: string;
-    shareableId: string;
+    shareableId?: string;
   };
   
   declare type Transaction = {
@@ -137,7 +137,7 @@ declare type SearchParamProps = {
   };
   
   declare interface CreditCardProps {
-    account: Account;
+    account?: Account;
     userName: string;
     showBalance?: boolean;
   }

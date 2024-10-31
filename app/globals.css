@@ -218,7 +218,7 @@
   }
 
   .bank-card_icon {
-    @apply flex size-full flex-1 flex-col items-end justify-between rounded-r-[20px] bg-bank-gradient bg-cover bg-center bg-no-repeat py-5 pr-5;
+    @apply flex size-full flex-1 flex-col items-end justify-between rounded-r-[20px] bg-gradient-to-tr from-pink-500 to-purple-500 via-pink-300 opacity-80 bg-cover bg-center bg-no-repeat py-5 pr-5;
   }
 
   /* Bank Info */
@@ -353,7 +353,7 @@
   }
 
   .sidebar-logo {
-    @apply 2xl:text-26 font-ibm-plex-serif text-[26px] font-bold text-black-1 ;
+    @apply 2xl:text-26 font-ibm-plex-serif text-[26px] font-bold text-black-1;
   }
 
   .sidebar-link {

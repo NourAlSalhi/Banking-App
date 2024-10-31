@@ -2,8 +2,16 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import type { RightSidebarProps } from "../types";
+import BankCard from "../BankCard";
 
 const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
+  let Account = {
+    name: "Bank of America",
+    currentBalance: 100,
+    id: "1",
+    appwriteItemId: "1",
+    sharaebleId: "123467",
+  };
   return (
     <aside className="right-sidebar">
       <section className="flex flex-col pb-8">
@@ -35,7 +43,7 @@ const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
             <h2 className="text-14 font-semibold text-gray-500">Add Bank</h2>
           </Link>
         </div>
-
+        <BankCard userName="Nour Alsalhi" account={Account} />
         {/* {banks?.length > 0 && (
           <div className="relative flex flex-1 flex-col items-center justify-center gap-5">
             <div className="relative z-10">
