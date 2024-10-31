@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { sidebarLinks } from "@/constants";
+import { sidebarLinks } from "@/app/(root)/constants";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 

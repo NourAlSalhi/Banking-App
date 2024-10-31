@@ -1,6 +1,6 @@
-import { HeaderBox } from "@/components";
-import RightSidebar from "@/components/RightSidebar";
-import TotalBalanceBox from "@/components/TotalBalanceBox";
+import { HeaderBox } from "@/app/(root)/components";
+import RightSidebar from "@/app/(root)/components/RightSidebar";
+import TotalBalanceBox from "@/app/(root)/components/TotalBalanceBox";
 
 const Home = () => {
   const loggedIn = {

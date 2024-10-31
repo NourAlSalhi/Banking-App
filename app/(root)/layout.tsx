@@ -1,5 +1,5 @@
-import Sidebar from "@/components/Sidebar";
-import MobileNav from "@/components/MobileNav";
+import Sidebar from "@/app/(root)/components/Sidebar";
+import MobileNav from "@/app/(root)/components/MobileNav";
 
 export default function RootLayout({
   children,
