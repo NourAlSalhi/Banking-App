@@ -1,15 +1,5 @@
-// components/FormInput.tsx
 "use client";
-
-import { useFormContext, Controller } from 'react-hook-form';
-
-interface FormInputProps {
-  name: string;
-  label?: string;
-  type?: string;
-  placeholder?: string;
-  className?: string;
-}
+import { useFormContext, Controller } from "react-hook-form";
 
 const Input: React.FC<FormInputProps> = ({
   name,
@@ -18,11 +8,20 @@ const Input: React.FC<FormInputProps> = ({
   placeholder = "",
   className = "",
 }) => {
-  const { control, formState: { errors } } = useFormContext(); // Use context to access the form methods
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
+
+  const errorMessage = errors[name]?.message as string | undefined;
 
   return (
     <div className={`flex flex-col ${className}`}>
-      {label && <label className="mb-1 text-sm font-medium text-gray-700">{label}</label>}
+      {label && (
+        <label className="mb-1 text-sm font-medium text-gray-700">
+          {label}
+        </label>
+      )}
       <Controller
         name={name}
         control={control}
@@ -32,16 +31,12 @@ const Input: React.FC<FormInputProps> = ({
             type={type}
             placeholder={placeholder}
             className={`py-2 px-3 border rounded ${
-              errors[name] ? 'border-red-500' : 'border-gray-300'
-            }`}
+              errorMessage ? "border-red-500" : "border-gray-300"
+            } focus:border-blue-500`}
           />
         )}
       />
-      {errors[name] && (
-        <p className="mt-1 text-xs text-red-500">
-          {(errors[name]?.message as string) || 'This field is required'}
-        </p>
-      )}
+      <p className={`mt-1 text-[10px] text-red-500 h-4`}>{errorMessage || " "}</p>
     </div>
   );
 };

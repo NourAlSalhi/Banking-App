@@ -3,49 +3,40 @@ import Input from "@/app/components/Input";
 import { useForm, FormProvider } from "react-hook-form";
 import Link from "next/link";
 import Image from "next/image";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  LoginFormData,
+  SignUpFormData,
+  loginSchema,
+  signUpSchema,
+} from "@/app/schemas/validationSchemas";
 
-interface SignUpFormData {
-  firstName: string;
-  lastName: string;
-  address: string;
-  state: string;
-  postalCode: string;
-  dateOfBirth: string;
-  ssn: string;
-  email: string;
-  password: string;
-}
-
-interface LoginFormData {
-  email: string;
-  password: string;
-}
-
-const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
-  const defaultValues =
-    type === "sign-up"
-      ? {
-          firstName: "",
-          lastName: "",
-          address: "",
-          state: "",
-          postalCode: "",
-          dateOfBirth: "",
-          ssn: "",
-          email: "",
-          password: "",
-        }
-      : {
-          email: "",
-          password: "",
-        };
+const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
+  const schema = type === "sign-up" ? signUpSchema : loginSchema;
 
   const methods = useForm<SignUpFormData | LoginFormData>({
-    defaultValues,
+    resolver: zodResolver(schema),
+    defaultValues:
+      type === "sign-up"
+        ? {
+            firstName: "",
+            lastName: "",
+            address: "",
+            state: "",
+            postalCode: "",
+            dateOfBirth: "",
+            ssn: "",
+            email: "",
+            password: "",
+          }
+        : {
+            email: "",
+            password: "",
+          },
   });
 
   const onSubmit = (data: SignUpFormData | LoginFormData) => {
-    console.log("Form Data:", data);
+    console.log(data);
   };
 
   return (
@@ -63,24 +54,21 @@ const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
         </Link>
       </nav>
 
-      {type === "sign-in" ? (
-        <div>
-          <h1 className="text-2xl font-bold mb-2">Log in</h1>
-          <p className="text-sm text-[#475467]">
-            Welcome back! Please enter your details
-          </p>
-        </div>
-      ) : (
-        <div>
-          <h1 className="text-2xl font-bold mb-2">Sign up</h1>
-          <p className="text-sm text-[#475467]">Please enter your details.</p>
-        </div>
-      )}
+      <div>
+        <h1 className="text-2xl font-bold mb-2">
+          {type === "sign-in" ? "Log in" : "Sign up"}
+        </h1>
+        <p className="text-sm text-[#475467]">
+          {type === "sign-in"
+            ? "Welcome back! Please enter your details"
+            : "Please enter your details."}
+        </p>
+      </div>
 
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           {type === "sign-up" && (
-            <div>
+            <>
               <div className="flex max-md:flex-col justify-between">
                 <Input
                   name="firstName"
@@ -92,14 +80,14 @@ const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
                   name="lastName"
                   label="Last Name"
                   placeholder="ex: Alsalhi"
-                  className="mb-4 w-[190px] max-md:w-full"
+                  className="mb-2 w-[190px] max-md:w-full"
                 />
               </div>
               <Input
                 name="address"
                 label="Address"
                 placeholder="Enter your specific address"
-                className="mb-4"
+                className="mb-2"
               />
               <div className="flex max-md:flex-col justify-between">
                 <Input
@@ -112,7 +100,7 @@ const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
                   name="postalCode"
                   label="Postal Code"
                   placeholder="ex: 11101"
-                  className="mb-4 w-[190px] max-md:w-full"
+                  className="mb-2 w-[190px] max-md:w-full"
                 />
               </div>
               <div className="flex max-md:flex-col justify-between">
@@ -126,10 +114,10 @@ const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
                   name="ssn"
                   label="SSN"
                   placeholder="ex: 1234"
-                  className="mb-4 w-[190px] max-md:w-full"
+                  className="mb-2 w-[190px] max-md:w-full"
                 />
               </div>
-            </div>
+            </>
           )}
 
           <Input
@@ -144,12 +132,12 @@ const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
             label="Password"
             type="password"
             placeholder="Enter your password"
-            className="mt-4"
+            className="mt-2"
           />
 
           <button
             type="submit"
-            className="bg-blue-500 border hover:bg-blue-600 transition ease-in rounded text-white mt-6 w-full py-2 text-sm"
+            className="bg-blue-500 border rounded text-white mt-8 w-full py-2 text-sm"
           >
             {type === "sign-in" ? "Login" : "Sign up"}
           </button>
