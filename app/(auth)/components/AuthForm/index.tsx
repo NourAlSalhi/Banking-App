@@ -3,20 +3,51 @@ import Input from "@/app/components/Input";
 import { useForm, FormProvider } from "react-hook-form";
 import Link from "next/link";
 import Image from "next/image";
-interface FormData {
+
+interface SignUpFormData {
   firstName: string;
+  lastName: string;
+  address: string;
+  state: string;
+  postalCode: string;
+  dateOfBirth: string;
+  ssn: string;
   email: string;
+  password: string;
 }
-const AuthForm = ({ type }: { type: string }) => {
-  const methods = useForm<FormData>({
-    defaultValues: {
-      firstName: "",
-      email: "",
-    },
+
+interface LoginFormData {
+  email: string;
+  password: string;
+}
+
+const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
+  const defaultValues =
+    type === "sign-up"
+      ? {
+          firstName: "",
+          lastName: "",
+          address: "",
+          state: "",
+          postalCode: "",
+          dateOfBirth: "",
+          ssn: "",
+          email: "",
+          password: "",
+        }
+      : {
+          email: "",
+          password: "",
+        };
+
+  const methods = useForm<SignUpFormData | LoginFormData>({
+    defaultValues,
   });
-  const onSubmit = (data: FormData) => {
-    console.log(data);
+
+  const onSubmit = (data: SignUpFormData | LoginFormData) => {
+    console.log("Form Data:", data);
   };
+
   return (
     <section className="auth-form text-sm">
       <nav className="flex flex-col gap-4">
@@ -31,6 +62,7 @@ const AuthForm = ({ type }: { type: string }) => {
           <h1 className="sidebar-logo">Horizon</h1>
         </Link>
       </nav>
+
       {type === "sign-in" ? (
         <div>
           <h1 className="text-2xl font-bold mb-2">Log in</h1>
@@ -44,39 +76,40 @@ const AuthForm = ({ type }: { type: string }) => {
           <p className="text-sm text-[#475467]">Please enter your details.</p>
         </div>
       )}
+
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           {type === "sign-up" && (
             <div>
               <div className="flex max-md:flex-col justify-between">
                 <Input
-                  name=""
+                  name="firstName"
                   label="First Name"
                   placeholder="ex: Nour"
                   className="w-[190px] max-md:w-full max-md:mb-4"
                 />
                 <Input
-                  name=""
+                  name="lastName"
                   label="Last Name"
                   placeholder="ex: Alsalhi"
                   className="mb-4 w-[190px] max-md:w-full"
                 />
               </div>
               <Input
-                name=""
+                name="address"
                 label="Address"
                 placeholder="Enter your specific address"
                 className="mb-4"
               />
               <div className="flex max-md:flex-col justify-between">
                 <Input
-                  name=""
+                  name="state"
                   label="State"
                   placeholder="ex: NY"
                   className="w-[190px] max-md:w-full max-md:mb-4"
                 />
                 <Input
-                  name=""
+                  name="postalCode"
                   label="Postal Code"
                   placeholder="ex: 11101"
                   className="mb-4 w-[190px] max-md:w-full"
@@ -84,13 +117,13 @@ const AuthForm = ({ type }: { type: string }) => {
               </div>
               <div className="flex max-md:flex-col justify-between">
                 <Input
-                  name=""
+                  name="dateOfBirth"
                   label="Date of Birth"
                   placeholder="yyyy-mm-dd"
                   className="w-[190px] max-md:w-full max-md:mb-4"
                 />
                 <Input
-                  name=""
+                  name="ssn"
                   label="SSN"
                   placeholder="ex: 1234"
                   className="mb-4 w-[190px] max-md:w-full"
@@ -98,37 +131,40 @@ const AuthForm = ({ type }: { type: string }) => {
               </div>
             </div>
           )}
+
           <Input
-            name=""
+            name="email"
             label="Email"
             type="email"
             placeholder="Enter your email"
             className=""
           />
           <Input
-            name=""
+            name="password"
             label="Password"
             type="password"
             placeholder="Enter your password"
             className="mt-4"
           />
+
           <button
             type="submit"
             className="bg-blue-500 border rounded text-white mt-6 w-full py-2 text-sm"
           >
-            {type == "sign-in" ? "Login" : "Sign up"}
+            {type === "sign-in" ? "Login" : "Sign up"}
           </button>
         </form>
       </FormProvider>
+
       <p className="text-center text-[#475467] text-sm mt-4">
-        {type == "sign-in"
+        {type === "sign-in"
           ? "Don't have an account?"
           : "Already have an account?"}{" "}
         <Link
-          href={type == "sign-in" ? "/sign-up" : "/sign-in"}
+          href={type === "sign-in" ? "/sign-up" : "/sign-in"}
           className="text-blue-500 font-semibold"
         >
-          {type == "sign-in" ? "Sign up" : "Login"}
+          {type === "sign-in" ? "Sign up" : "Login"}
         </Link>
       </p>
     </section>
