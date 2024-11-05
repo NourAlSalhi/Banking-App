@@ -149,7 +149,7 @@ const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
 
           <button
             type="submit"
-            className="bg-blue-500 border rounded text-white mt-6 w-full py-2 text-sm"
+            className="bg-blue-500 border hover:bg-blue-600 transition ease-in rounded text-white mt-6 w-full py-2 text-sm"
           >
             {type === "sign-in" ? "Login" : "Sign up"}
           </button>
