@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Modal from "../Modal";
 
-const MobileNav = () => {
+const MobileNav = ({ user }: { user: any }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = () => {
@@ -42,7 +42,7 @@ const MobileNav = () => {
         </button>
       </nav>
 
-      {isModalOpen && <Modal onClose={toggleModal} />}
+      {isModalOpen && <Modal onClose={toggleModal} user={user} />}
     </div>
   );
 };

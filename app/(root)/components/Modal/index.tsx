@@ -5,7 +5,7 @@ import { sidebarLinks } from "@/app/(root)/constants";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 
-const Modal = ({ onClose }: any) => {
+const Modal = ({ onClose, user }: any) => {
   const isActive = usePathname();
   const [isVisible, setIsVisible] = useState(false);
 
@@ -15,7 +15,7 @@ const Modal = ({ onClose }: any) => {
 
   const handleClose = () => {
     setIsVisible(false);
-    setTimeout(onClose, 700); 
+    setTimeout(onClose, 700);
   };
 
   return (
@@ -55,26 +55,48 @@ const Modal = ({ onClose }: any) => {
             </svg>
           </button>
         </div>
-        <nav className="flex flex-col gap-4">
-          {sidebarLinks.map((item) => {
-            const IconComponent = item.imgURL;
-            return (
-              <Link
-                key={item.route}
-                href={item.route}
-                className={`flex items-center gap-3 px-3 py-2 rounded ${
-                  isActive === item.route
-                    ? "bg-[#0179FE] text-white font-semibold"
-                    : "text-gray-800 hover:bg-slate-100"
-                }`}
-                onClick={handleClose}
-              >
-                <IconComponent className="w-6 h-6" />
-                <span>{item.label}</span>
-              </Link>
-            );
-          })}
-        </nav>
+        <div className="flex flex-col justify-between h-[90%] gap-4">
+          <div className="h-[180px] flex flex-col justify-between">
+            {sidebarLinks.map((item) => {
+              const IconComponent = item.imgURL;
+              return (
+                <Link
+                  key={item.route}
+                  href={item.route}
+                  className={`flex items-center gap-3 px-3 py-2 rounded ${
+                    isActive === item.route
+                      ? "bg-[#0179FE] text-white font-semibold"
+                      : "text-gray-800 hover:bg-slate-100"
+                  }`}
+                  onClick={handleClose}
+                >
+                  <IconComponent className="w-6 h-6" />
+                  <span>{item.label}</span>
+                </Link>
+              );
+            })}
+          </div>
+          <div className="flex gap-3 items-center">
+            <div className="flex-center size-12 rounded-full bg-gray-100 p-2 shadow-profile">
+              <span className="text-2xl font-bold text-blue-500">N</span>
+            </div>
+            <div>
+              <h1 className="text-gray-900 font-semibold">
+                {user.firstName} {user.lastName}
+              </h1>
+              <p className="text-12 text-gray-600">{user.email}</p>
+            </div>
+            <Link href="/sign-in">
+              <Image
+                src="/icons/logout.svg"
+                width={15}
+                height={15}
+                alt="logout"
+                className="size-[15px] cursor-pointer"
+              />
+            </Link>
+          </div>
+        </div>
       </section>
     </div>
   );

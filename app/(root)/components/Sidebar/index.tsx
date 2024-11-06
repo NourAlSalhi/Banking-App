@@ -22,31 +22,53 @@ const Sidebar = ({ user }: SidebarProps) => {
           <h1 className="sidebar-logo hidden xl:block">Horizon</h1>
         </Link>
       </nav>
-      <div className="h-[180px] flex flex-col justify-between">
-        {sidebarLinks.map((item) => {
-          const IconComponent = item.imgURL;
-          return (
-            <Link
-              key={item.route}
-              href={item.route}
-              className={`flex max-xl:w-fit ${
-                isActive !== item.route && `hover:bg-slate-100`
-              } items-center max-xl:justify-center rounded px-3 py-2  gap-3 ${
-                isActive === item.route
-                  ? "bg-[#0179FE] text-white font-semibold"
-                  : "text-black"
-              }`}
-            >
-              <IconComponent
-                className="w-6 h-6"
-                style={{
-                  stroke: isActive === item.route ? "white" : "gray",
-                }}
-              />
-              <span className="max-xl:hidden">{item.label}</span>
-            </Link>
-          );
-        })}
+      <div className="flex flex-col justify-between h-full gap-4">
+        <div className="h-[180px] flex flex-col justify-between">
+          {sidebarLinks.map((item) => {
+            const IconComponent = item.imgURL;
+            return (
+              <Link
+                key={item.route}
+                href={item.route}
+                className={`flex max-xl:w-fit ${
+                  isActive !== item.route && `hover:bg-slate-100`
+                } items-center max-xl:justify-center rounded px-3 py-2  gap-3 ${
+                  isActive === item.route
+                    ? "bg-[#0179FE] text-white font-semibold"
+                    : "text-black"
+                }`}
+              >
+                <IconComponent
+                  className="w-6 h-6"
+                  style={{
+                    stroke: isActive === item.route ? "white" : "gray",
+                  }}
+                />
+                <span className="max-xl:hidden">{item.label}</span>
+              </Link>
+            );
+          })}
+        </div>
+        <div className="flex gap-3 items-center">
+          <div className="flex-center size-12 rounded-full bg-gray-100 p-2 shadow-profile">
+            <span className="text-2xl font-bold text-blue-500">N</span>
+          </div>
+          <div className="max-xl:hidden">
+            <h1 className="text-gray-900 font-semibold">
+              {user.firstName} {user.lastName}
+            </h1>
+            <p className="text-12 text-gray-600">{user.email}</p>
+          </div>
+          <Link href="/sign-in">
+            <Image
+              src="/icons/logout.svg"
+              width={15}
+              height={15}
+              alt="logout"
+              className="size-[15px] max-xl:hidden cursor-pointer"
+            />
+          </Link>
+        </div>
       </div>
     </section>
   );
