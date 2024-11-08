@@ -76,7 +76,7 @@ const Modal = ({ onClose, user }: any) => {
               );
             })}
           </div>
-          <div className="flex gap-3 items-center">
+          <div className="flex mb-4 gap-3 items-center">
             <div className="flex-center size-12 rounded-full bg-gray-100 p-2 shadow-profile">
               <span className="text-2xl font-bold text-blue-500">N</span>
             </div>

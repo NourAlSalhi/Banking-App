@@ -7,6 +7,8 @@ const BankCard = ({
   account,
   userName,
   showBalance = true,
+  classNames,
+  withGradient,
 }: CreditCardProps) => {
   return (
     <div className="flex flex-col">
@@ -14,11 +16,11 @@ const BankCard = ({
         href={`/transaction-history/?id=${account?.appwriteItemId}`}
         className="bank-card"
       >
-        <div className="relative z-10 flex size-full max-w-[228px] flex-col justify-between rounded-l-[20px] bg-gray-700 px-5 pb-4 pt-5">
+        <div
+          className={`relative text-sm z-10 flex size-full max-w-[228px] flex-col justify-between rounded-l-[20px] px-5 pb-4 pt-5 ${classNames}`}
+        >
           <div>
-            <h1 className="text-16 font-semibold text-white">
-              {account?.name}
-            </h1>
+            <h1 className="font-semibold text-white">{account?.name}</h1>
             <p className="font-ibm-plex-serif font-black text-white">
               {formatAmount(account?.currentBalance ?? 0)}
             </p>
@@ -35,7 +37,11 @@ const BankCard = ({
           </article>
         </div>
 
-        <div className="bank-card_icon">
+        <div
+          className={`flex size-full flex-1 flex-col items-end justify-between rounded-r-[20px] ${
+            withGradient && "bg-gradient-mesh"
+          } bg-cover bg-no-repeat opacity-80 bg-center py-5 pr-5`}
+        >
           <Image src="/icons/Paypass.svg" width={20} height={24} alt="pay" />
           <Image
             src="/icons/mastercard.svg"
