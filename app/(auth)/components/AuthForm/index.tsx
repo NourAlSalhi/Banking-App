@@ -1,4 +1,6 @@
 "use client";
+
+import { account, databases } from "../../../lib/appwrite";
 import Input from "@/app/components/Input";
 import { useForm, FormProvider } from "react-hook-form";
 import Link from "next/link";
@@ -10,9 +12,14 @@ import {
   loginSchema,
   signUpSchema,
 } from "@/app/schemas/validationSchemas";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
   const schema = type === "sign-up" ? signUpSchema : loginSchema;
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   const methods = useForm<SignUpFormData | LoginFormData>({
     resolver: zodResolver(schema),
@@ -35,8 +42,38 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
           },
   });
 
-  const onSubmit = (data: SignUpFormData | LoginFormData) => {
-    console.log(data);
+  const addUserProfile = async (userId: string, data: SignUpFormData) => {
+    await databases.createDocument("your-database-id", "UserProfiles", userId, {
+      address: data.address,
+      state: data.state,
+      postalCode: data.postalCode,
+      dateOfBirth: data.dateOfBirth,
+      ssn: data.ssn,
+    });
+  };
+
+  const onSubmit = async (data: SignUpFormData | LoginFormData) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      if (type === "sign-up") {
+        const user = await account.create(
+          "unique()",
+          data.email,
+          data.password,
+          `${data.firstName} ${data.lastName}`
+        );
+        // await addUserProfile(user.$id, data);
+      } else if (type === "sign-in") {
+        await account.createEmailPasswordSession(data.email, data.password);
+      }
+      router.push("/");
+    } catch (err: any) {
+      setError(err.message || "An error occurred during authentication.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -135,11 +172,18 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
             className="mt-2"
           />
 
+          {error && <p className="text-red-500 mt-2">{error}</p>}
+
           <button
             type="submit"
+            disabled={loading}
             className="bg-blue-500 border rounded text-white mt-8 w-full py-2 text-sm"
           >
-            {type === "sign-in" ? "Login" : "Sign up"}
+            {loading
+              ? "Submitting..."
+              : type === "sign-in"
+              ? "Login"
+              : "Sign up"}
           </button>
         </form>
       </FormProvider>

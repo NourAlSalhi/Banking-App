@@ -2,21 +2,27 @@
 import Link from "next/link";
 import Image from "next/image";
 import { sidebarLinks } from "@/app/(root)/constants";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import { account } from "../../../lib/appwrite";
 
 const Modal = ({ onClose, user }: any) => {
-  const isActive = usePathname();
   const [isVisible, setIsVisible] = useState(false);
+  const isActive = usePathname();
+  const router = useRouter();
 
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
-
+  const handleLogout = async () => {
+    await account.deleteSession("current");
+    router.push("/sign-in");
+  };
   const handleClose = () => {
     setIsVisible(false);
     setTimeout(onClose, 700);
   };
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
 
   return (
     <div
@@ -86,7 +92,7 @@ const Modal = ({ onClose, user }: any) => {
               </h1>
               <p className="text-12 text-gray-600">{user.email}</p>
             </div>
-            <Link href="/sign-in">
+            <button onClick={handleLogout}>
               <Image
                 src="/icons/logout.svg"
                 width={15}
@@ -94,7 +100,7 @@ const Modal = ({ onClose, user }: any) => {
                 alt="logout"
                 className="size-[15px] cursor-pointer"
               />
-            </Link>
+            </button>
           </div>
         </div>
       </section>

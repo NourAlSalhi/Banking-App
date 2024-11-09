@@ -4,10 +4,18 @@ import type { SidebarProps } from "../types";
 import Link from "next/link";
 import Image from "next/image";
 import { sidebarLinks } from "@/app/(root)/constants";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { account } from "../../../lib/appwrite";
 
 const Sidebar = ({ user }: SidebarProps) => {
   const isActive = usePathname();
+  const router = useRouter();
+  
+  const handleLogout = async () => {
+    await account.deleteSession("current");
+    router.push("/sign-in");
+  };
+
   return (
     <section className="sticky text-14 left-0 top-0 flex h-screen xl:w-[260px] flex-col max-xl:items-center border-r border-gray-200 bg-white p-5 max-md:hidden pr-3 ">
       <nav className="flex flex-col gap-4">
@@ -59,7 +67,7 @@ const Sidebar = ({ user }: SidebarProps) => {
             </h1>
             <p className="text-12 text-gray-600">{user.email}</p>
           </div>
-          <Link href="/sign-in">
+          <button onClick={handleLogout}>
             <Image
               src="/icons/logout.svg"
               width={15}
@@ -67,7 +75,7 @@ const Sidebar = ({ user }: SidebarProps) => {
               alt="logout"
               className="size-[15px] max-xl:hidden cursor-pointer"
             />
-          </Link>
+          </button>
         </div>
       </div>
     </section>
