@@ -6,4 +6,3 @@
     "@typescript-eslint/no-unused-vars": "off"
   }
 }
-eslint --cache
