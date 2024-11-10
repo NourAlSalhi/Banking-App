@@ -5,7 +5,7 @@ import type { RightSidebarProps } from "../types";
 import BankCard from "../BankCard";
 
 const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
-  let Account = {
+  const Account = {
     name: "Bank of America",
     currentBalance: 100,
     id: "1",
@@ -19,7 +19,7 @@ const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
         <div className="profile">
           <div className="profile-img">
             <span className="text-5xl font-bold text-blue-500">
-              {user.firstName[0]}
+              {user.firstName}
             </span>
           </div>
 

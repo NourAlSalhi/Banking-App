@@ -1,7 +1,7 @@
 import BankCard from "../components/BankCard";
 
 const MyBanksPage = () => {
-  let Account = {
+  const Account = {
     name: "Bank of America",
     currentBalance: 100,
     id: "1",
