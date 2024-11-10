@@ -51,20 +51,19 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
       ssn: data.ssn,
     });
   };
-
+  // await addUserProfile(user.$id, data);
   const onSubmit = async (data: SignUpFormData | LoginFormData) => {
     setLoading(true);
     setError(null);
 
     try {
-      if (type === "sign-up") {
-        const user = await account.create(
+      if (type === "sign-up" && "firstName" in data) {
+        await account.create(
           "unique()",
           data.email,
           data.password,
           `${data.firstName} ${data.lastName}`
         );
-        // await addUserProfile(user.$id, data);
       } else if (type === "sign-in") {
         await account.createEmailPasswordSession(data.email, data.password);
       }
